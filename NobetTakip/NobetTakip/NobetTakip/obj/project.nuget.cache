@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "nFrGN1he8p9kyjRr0CjRdlOsQuIzULGQ2g4/YWgtjDKAn95ulhFRhrEnC0aneJvKN+nM4X8goJX0/o7pPIPmZg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yusuf\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,31 @@
+﻿@model NobetTakip.Models.User
+@{
+    Layout = "_Layout_UnAuth";
+}
+
+
+<main class="form-signin">
+    <!--<form method="POST" action="/account/login">-->
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        <div class="mb-4 text-center">
+            <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        </div>
+        <h1 class="text-center h3 mb-3 fw-normal">Nöbet Takibe Giriş</h1>
+        <label for="inputEmail" class="visually-hidden">Email address</label>
+        @Html.TextBoxFor(f => f.MailAddress, new { title = "Eposta adresinizi giriniz.", @class = "form-control mb-2", @placeholder = "E-posta adresiniz" })
+        <!--<input type="email" id="inputEmail" class="form-control mb-2" placeholder="Email adresi" value="@Model.MailAddress" required autofocus>-->
+        <label for="inputPassword" class="visually-hidden">Password</label>
+        @Html.PasswordFor(f => f.Password, new { title = "Kullanıcı şifrenizi giriniz.", @class = "form-control mb-3", @placeholder = "Parolanız" })
+        <!--<input type="password" id="inputPassword" class="form-control mb-2" placeholder="Parola" value="@Model.Password" required>-->
+        <div class="checkbox mb-3">
+            <label>
+                @Html.CheckBoxFor(m => m.RememberMe, new { @checked = "checked" })
+                <!--<input type="checkbox" value="remember-me">--> Beni Hatırla
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Giriş Yap</button>
+        <p class="mt-5 mb-3 text-muted  text-center">2021 &copy; Yusuf Karabay</p>
+        <!--</form>-->
+    }
+</main>
