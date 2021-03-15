@@ -16,7 +16,7 @@ namespace NobetTakip.Controllers
         {
             return View();
         }
-
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -30,7 +30,7 @@ namespace NobetTakip.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userModel.MailAddress == "yusufkarabay21@gmail.com" && userModel.Password == "123456")
+                if (userModel.MailAddress == "yusufkarabay21@gmail.com" && userModel.Password == "1234567")
                 {
                     return RedirectToAction("Index", "Home");
                 } else
