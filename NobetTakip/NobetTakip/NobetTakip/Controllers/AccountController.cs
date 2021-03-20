@@ -35,7 +35,9 @@ namespace NobetTakip.Controllers
                     return RedirectToAction("Index", "Home");
                 } else
                 {
-                    return RedirectToAction("Error", "Home");
+                    return RedirectToAction("Error", "Homee");
+
+                    //deneme
                 }
             }
 
