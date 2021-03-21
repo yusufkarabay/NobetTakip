@@ -30,14 +30,14 @@ namespace NobetTakip.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userModel.MailAddress == "yusufkarabay21@gmail.com" && userModel.Password == "1234567")
+                if (userModel.MailAddress == "yusufkarabay21@gmail.com" && userModel.Password == "123456")
                 {
                     return RedirectToAction("Index", "Home");
                 } else
                 {
-                    return RedirectToAction("Error", "Homee");
+                    return RedirectToAction("Error", "Home");
 
-                    //deneme
+                    
                 }
             }
 
