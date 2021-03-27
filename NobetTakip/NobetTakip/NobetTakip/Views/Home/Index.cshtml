@@ -1,8 +1,75 @@
-﻿@{
+﻿@model NobetTakip.ViewModel.HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="bildirimler box-shadow">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+    </svg>
+    <p>Nöbet değiştirme istekleri</p>
+    <span class="badge">@Model.BildirimSayisi</span>
 </div>
+<div class="section-header mt-40">En yakın nöbetiniz</div>
+
+@foreach (Nobet nobet in Model.Nobetler)
+{
+
+    <div class="nobet-data @(@nobet.IsEnYakin ? "first" : "")">
+        @if (nobet.DayNight == false)
+        {
+            <div class="info-row timepill day">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                </svg>
+                <p>GÜNDÜZ</p>
+            </div>
+        }
+        else
+        {
+            <div class="info-row timepill night">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                </svg>
+                <p>GECE</p>
+            </div>
+        }
+        <div class="info-row title">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p>@nobet.Date.ToString("dd MMMM dddd")</p>
+        </div>
+        <div class="info-row normal">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            @if (nobet.Type == 1 && nobet.Period == 0)
+            {
+                <p>08:00 - 20:00</p>
+            }
+            else if (nobet.Type == 1 && nobet.Period == 1)
+            {
+                <p>20:00 - 08:00</p>
+            }
+            else if (nobet.Type == 0)
+            {
+                <p>24 Saat Nöbeti</p>
+            }
+
+        </div>
+        <div class="info-row normal">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <p>Yusuf Karabay, Hasan Cemre Ok ve 3 kişi ile birlikte</p>
+        </div>
+    </div>
+
+    @if (nobet.IsEnYakin)
+    {
+        <div class="section-header mt-40">İlerideki Nöbetleriniz</div>
+    }
+
+
+}

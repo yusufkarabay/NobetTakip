@@ -49,7 +49,6 @@ C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\Nobet
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\bin\Debug\netcoreapp3.1\NobetTakip.Views.dll
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\bin\Debug\netcoreapp3.1\NobetTakip.Views.pdb
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.csprojAssemblyReference.cache
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.AssemblyInfoInputs.cache
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.AssemblyInfo.cs
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.csproj.CoreCompileInputs.cache
@@ -78,3 +77,4 @@ C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\Nobet
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.dll
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.pdb
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.genruntimeconfig.cache
+C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.csprojAssemblyReference.cache

@@ -127,6 +127,10 @@
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
+        .mt-40 {
+            margin-top: 40px;
+        }
+
         .section-header {
             font-style: normal;
             font-weight: 600;
@@ -143,38 +147,105 @@
             height: auto;
             background-color: #ffffff;
             border-radius: 4px;
+            border-top: 4px solid transparent;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .nobet-data.first {
+            border-top-color: #EB5757;
+        }
+
+
+        .nobet-data .info-row {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 12px;
+        }
+
+        .nobet-data .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .nobet-data .info-row svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+        }
+
+        .nobet-data .info-row.normal svg {
+            stroke: #717989;
+        }
+
+        .nobet-data .info-row.normal p {
+            font-style: normal;
+            font-size: 14px;
+            line-height: 20px;
+            color: #717989;
+        }
+
+        .nobet-data .info-row.title p {
+            color: #010929;
+            font-weight: 600;
+            font-style: normal;
+            font-size: 14px;
+            color: #010929;
+        }
+
+        .nobet-data .info-row.title svg {
+            stroke: #010929;
+        }
+
+
+        .nobet-data .info-row.timepill {
+            max-width: 90px;
+            padding: .25rem .5rem;
+            border-radius: 4px;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-            .nobet-data .info-row {
-                display: flex;
-                flex-direction: row;
-                margin-bottom: 14px;
+        .nobet-data .info-row.timepill svg {
+            min-width: 16px;
+            width: 16px;
+            min-height: 16px;
+            height: 16px;
+            margin-right: 4px;
+        }
+
+        .nobet-data .info-row.timepill p {
+            text-align: left;
+            flex-grow: 1;
+            font-weight: 700;
+            font-size: .75rem;
+            letter-spacing: -0.05em;
+        }
+
+
+        .nobet-data .info-row.timepill.day {
+            background: #F6ECB4;
+        }
+
+        .nobet-data .info-row.timepill.day svg, .nobet-data .info-row.timepill.day p {
+            color: #947301;
+        }
+
+        .nobet-data .info-row.timepill.night {
+            background: #D0E5F8;
+        }
+
+        .nobet-data .info-row.timepill.night svg, .nobet-data .info-row.timepill.night p {
+            color: #2A7AC5;
+        }
+
+        @@media screen and (max-width: 576px) {
+            .timepill {
+                position: absolute;
+                z-index: 2;
+                right: 16px;
             }
+        }
 
-                .nobet-data .info-row:last-child {
-                    margin-bottom: 0;
-                }
 
-                .nobet-data .info-row svg {
-                    stroke: #717989;
-                }
-
-                .nobet-data .info-row p {
-                    font-style: normal;
-                    font-size: 14px;
-                    line-height: 20px;
-                    color: #717989;
-                }
-
-                .nobet-data .info-row.title p {
-                    color: #010929;
-                    font-weight: 600;
-                }
-
-                .nobet-data .info-row.title svg {
-                    stroke: #010929;
-                }
     </style>
 </head>
 <body>
@@ -194,35 +265,15 @@
         </div>
     </div>
     <div class="container">
-        <div class="bildirimler box-shadow mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
-            <p>Nöbet değiştirme istekleri</p>
-            <span class="badge">4</span>
-        </div>
-        <div class="section-header">En yakın nöbetiniz</div>
-        <div class="nobet-data">
-            <div class="info-row title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
-                <p>22 Mart Pazartesi</p>
-            </div>
-            <div class="info-row">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
-                <p>08:00 - 20:00</p>
-            </div>
-            <div class="info-row">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
-                <p>Yusuf Karabay, Hasan Cemre Ok ve 3 kişi ile birlikte</p>
-            </div>
-        </div>
     </div>
 
     <div class="container">
         @RenderBody()
     </div>
 
-    <footer class="border-top footer text-muted fixed-bottom">
+    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - NobetTakip - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            Nöbsis Nöbet Takip Sistemi &copy; Yusuf Karabay, 2021.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
