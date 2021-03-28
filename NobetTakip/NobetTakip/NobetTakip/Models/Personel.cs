@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NobetTakip.Models
 {
-    public class User // personel diye düşünebiliriz
+    public class Personel
     {
 
         public string RealName;

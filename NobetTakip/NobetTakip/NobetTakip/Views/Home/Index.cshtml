@@ -3,19 +3,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="bildirimler box-shadow">
+<a href="/bildirimler" class="bildirimler box-shadow">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
         <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
     </svg>
     <p>Nöbet değiştirme istekleri</p>
     <span class="badge">@Model.BildirimSayisi</span>
-</div>
+</a>
 <div class="section-header mt-40">En yakın nöbetiniz</div>
 
 @foreach (Nobet nobet in Model.Nobetler)
 {
 
-    <div class="nobet-data @(@nobet.IsEnYakin ? "first" : "")">
+    <a href="/nobet/@nobet.NobetId" class="nobet-data @(@nobet.IsEnYakin ? "first" : "")">
         @if (nobet.DayNight == false)
         {
             <div class="info-row timepill day">
@@ -62,9 +62,25 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
-            <p>Yusuf Karabay, Hasan Cemre Ok ve 3 kişi ile birlikte</p>
-        </div>
-    </div>
+            @if (nobet.Nobetciler == null || nobet.Nobetciler.Count == 0)
+            {
+                <p>Nöbete atanmış personel bulunmamaktadır.</p>
+            }
+            else if (nobet.Nobetciler.Count == 1)
+            {
+                <p>@nobet.Nobetciler[0].RealName</p>
+            }
+            else if (nobet.Nobetciler.Count == 2)
+            {
+                <p>@nobet.Nobetciler[0].RealName ve @nobet.Nobetciler[1].RealName</p>
+            }
+            else if (nobet.Nobetciler.Count > 2)
+            {
+                <p>@nobet.Nobetciler[0].RealName, @nobet.Nobetciler[1].RealName ve @(nobet.Nobetciler.Count-2) kişi ile birlikte</p>
+            }
+
+            </div>
+    </a>
 
     @if (nobet.IsEnYakin)
     {

@@ -20,13 +20,13 @@ namespace NobetTakip.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            //User user = new User() { MailAddress = "yusufkarabay21@gmail.com", Password = "süleymansüleyman" };
-            return View(new User());
+            
+            return View(new Personel());
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(User userModel)
+        public IActionResult Login(Personel userModel)
         {
             if (ModelState.IsValid)
             {
@@ -35,9 +35,7 @@ namespace NobetTakip.Controllers
                     return RedirectToAction("Index", "Home");
                 } else
                 {
-                    return RedirectToAction("Error", "Home");
-
-                    
+                    return RedirectToAction("Error", "Home");                  
                 }
             }
 

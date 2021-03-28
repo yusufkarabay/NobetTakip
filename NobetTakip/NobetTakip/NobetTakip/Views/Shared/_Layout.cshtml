@@ -85,6 +85,8 @@
                 }
 
         .bildirimler {
+            text-decoration:none;
+
             width: 100%;
             display: flex;
             flex-direction: row;
@@ -99,6 +101,7 @@
                 width: 20px;
                 height: 20px;
                 margin-right: 16px;
+                color: #FFF;
             }
 
             .bildirimler p {
@@ -141,6 +144,8 @@
         }
 
         .nobet-data {
+            text-decoration:none;
+
             display: flex;
             flex-direction: column;
             padding: 1rem;
@@ -185,6 +190,7 @@
         }
 
         .nobet-data .info-row.title p {
+            flex-grow: 1;
             color: #010929;
             font-weight: 600;
             font-style: normal;
@@ -194,6 +200,10 @@
 
         .nobet-data .info-row.title svg {
             stroke: #010929;
+        }
+
+        .nobet-data .info-row.title svg.action {
+            stroke: #2F80ED;
         }
 
 

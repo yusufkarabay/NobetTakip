@@ -78,3 +78,4 @@ C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\Nobet
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.pdb
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.genruntimeconfig.cache
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\NobetTakip.csprojAssemblyReference.cache
+C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\obj\Debug\netcoreapp3.1\Razor\Views\Home\NobetDetay.cshtml.g.cs
