@@ -7,7 +7,7 @@ namespace NobetTakip.Models
 {
     public class Personel
     {
-
+        public Guid Id { get; set; }
         public string RealName;
         public string Username { get; set; }
         public string MailAddress { get; set; }

@@ -16,7 +16,13 @@ namespace NobetTakip.Models
 
         public bool IsEnYakin { get; set; }
         public bool DayNight { get; set; } // 0 = Day, 1 = Night
-    
+        
+        public string ShareText { get
+            {
+                string _sz = string.Format("Merhaba, {0} tarihinde {1} nöbetideyim.", Date.ToString("dd MMMM dddd"), DayNight ? "gece" : "gündüz");
+                return _sz;
+            }
+        }
         
         public Nobet()
         {
