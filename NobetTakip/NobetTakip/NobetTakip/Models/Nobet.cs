@@ -19,7 +19,7 @@ namespace NobetTakip.Models
         
         public string ShareText { get
             {
-                string _sz = string.Format("Merhaba, {0} tarihinde {1} nöbetideyim.", Date.ToString("dd MMMM dddd"), DayNight ? "gece" : "gündüz");
+                string _sz = string.Format("Merhaba, {0} tarihinde {1} nöbetindeyim.{2}{2}Nöbetimle ilgili bilgilere aşağıdaki linkten ulaşabilirsin. https://81.214.1.208:5001/nobet/{3}", Date.ToString("dd MMMM dddd"), DayNight ? "gece" : "gündüz", Environment.NewLine, NobetId.ToString());
                 return _sz;
             }
         }

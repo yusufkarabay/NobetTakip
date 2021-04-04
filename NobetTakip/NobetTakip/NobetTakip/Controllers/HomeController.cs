@@ -5,7 +5,9 @@ using NobetTakip.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NobetTakip.Controllers
@@ -121,5 +123,43 @@ namespace NobetTakip.Controllers
             return View(n1);
         }
     
+        [Route("nobet/takvim")]
+        public ActionResult TakvimOlustur()
+        {
+            Nobet nobet = new Nobet();
+            nobet.IsEnYakin = true;
+            nobet.DayNight = false;
+            nobet.NobetId = new Guid();
+            nobet.Period = 0;
+            nobet.Type = 0;
+            nobet.Nobetciler = personels;
+            nobet.Date = DateTime.Now;
+
+            DateTime eventStart = nobet.Date;
+            StringBuilder str = new StringBuilder(); 
+            str.AppendLine("BEGIN:VCALENDAR"); 
+            str.AppendLine("PRODID:-//Nöbet Paylaşım Bilgisi // Nöbsis"); 
+            str.AppendLine("VERSION:2.0"); 
+            str.AppendLine("METHOD:REQUEST");
+            str.AppendLine("BEGIN:VEVENT"); 
+            str.AppendLine(string.Format("DTSTART:{0:yyyyMMddTHHmmssZ}", eventStart)); 
+            str.AppendLine(string.Format("DTSTAMP:{0:yyyyMMddTHHmmssZ}", DateTime.Now)); 
+            str.AppendLine(string.Format("DTEND:{0:yyyyMMddTHHmmssZ}", eventStart.AddMinutes(+30))); 
+            str.AppendLine("LOCATION: Online"); 
+            str.AppendLine(string.Format("UID:{0}", Guid.NewGuid())); 
+            str.AppendLine(string.Format("DESCRIPTION:{0}", nobet.ShareText)); 
+            str.AppendLine(string.Format("X-ALT-DESC;FMTTYPE=text/html:{0}", nobet.ShareText)); 
+            str.AppendLine(string.Format("SUMMARY:{0}", "Nöbsis Nöbet Paylaşımı")); 
+            str.AppendLine(string.Format("ORGANIZER:MAILTO:{0}", "info@nobsis.com")); 
+            str.AppendLine(string.Format("ATTENDEE;CN=\"{0}\";RSVP=TRUE:mailto:{1}", "Hasan Cemre Ok", "okhasancemre@gmail.com")); 
+            str.AppendLine("BEGIN:VALARM"); str.AppendLine("TRIGGER:-PT15M"); 
+            str.AppendLine("ACTION:DISPLAY"); str.AppendLine("DESCRIPTION:Reminder"); 
+            str.AppendLine("END:VALARM"); str.AppendLine("END:VEVENT"); 
+            str.AppendLine("END:VCALENDAR");
+
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(str.ToString()));
+            return File(ms, "text/calendar");
+        }
+
     }
 }
