@@ -11,6 +11,12 @@ namespace NobetTakip.Controllers
 {
     public class AccountController : Controller
     {
+        AppDbContext _context;
+
+        public AccountController(AppDbContext appDbContext)
+        {
+            _context = appDbContext;
+        }
 
         public IActionResult Index()
         {
@@ -30,12 +36,41 @@ namespace NobetTakip.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userModel.MailAddress == "yusufkarabay21@gmail.com" && userModel.Password == "123456")
-                {
+                try { 
+                    Personel p = _context.Personels.First(p => p.MailAddress.Equals(userModel.MailAddress) && p.Password.Equals(userModel.Password));
                     return RedirectToAction("Index", "Home");
+                }
+                catch (InvalidOperationException iex)
+                {
+                    // girilen bilgilere ait kullanıcı bulunamadı.
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+
+            return View(userModel);
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new Personel());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Register(Personel userModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add<Personel>(userModel);
+                int affected = _context.SaveChanges();
+
+                if (affected > 0)
+                {
+                    return RedirectToAction("Login", "Account");
                 } else
                 {
-                    return RedirectToAction("Error", "Home");                  
+                    return RedirectToAction("Error", "Home");
                 }
             }
 
