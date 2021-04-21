@@ -1,4 +1,4 @@
-﻿@model NobetTakip.Models.Personel
+﻿@model NobetTakip.ViewModel.RegisterViewModel
 @{
     Layout = "_Layout_UnAuth";
 }
@@ -26,18 +26,13 @@
                     </div>
 
                     <div class="col-md-4 col-sm-12">
-                        <label for="username" class="form-label">Kullanıcı Adı</label>
-                        @Html.TextBoxFor(f => f.Username, new { title = "Kullanıcı Adınız", @class = "form-control", @placeholder = "Kullanıcı Adınız" })
-                    </div>
-
-                    <div class="col-md-4 col-sm-12">
                         <label for="password-new" class="form-label">Şifrenizi Belirleyin</label>
-                        @Html.TextBoxFor(f => f.Password, new { title = "Şifreniz", @class = "form-control", @placeholder = "Şifrenizi Belirleyin" })
+                        @Html.PasswordFor(f => f.Password, new { title = "Şifreniz", @class = "form-control", @placeholder = "Şifrenizi Belirleyin" })
                     </div>
 
                     <div class="col-md-4 col-sm-12">
                         <label for="password-re" class="form-label">Şifrenizi Tekrar Girin</label>
-                        @Html.TextBoxFor(f => f.Password, new { title = "Şifrenizi Tekrar Girin", @class = "form-control", @placeholder = "Şifrenizi Tekrar Girin" })
+                        @Html.PasswordFor(f => f.RePassword, new { title = "Şifrenizi Tekrar Girin", @class = "form-control", @placeholder = "Şifrenizi Tekrar Girin" })
                     </div>
 
                     <div class="col-md-6 col-sm-12">
@@ -58,7 +53,7 @@
 
                     <div class="col-md-12 mb-4">
                         <label for="company-code" class="form-label">İşletme Kodunuz</label>
-                        @Html.TextBoxFor(f => f.Isletme, new { title = "İşletme Kodunuz", @class = "form-control", @placeholder = "İşletme Kodunuz" })
+                        @Html.TextBoxFor(f => f.IsletmeKodu, new { title = "İşletme Kodunuz", @class = "form-control", @placeholder = "İşletme Kodunuz" })
                         <div class="invalid-feedback">
                             Zip code required.
                         </div>

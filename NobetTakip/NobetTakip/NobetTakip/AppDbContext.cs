@@ -25,6 +25,10 @@ namespace NobetTakip
             // personel sınıfı için mail adresi bilgisinin eşsiz olmasını sağla
             // kayıt ekranında kullanıcının girdiği şifreleri kontrol et ve ona göre kayıt yap.
 
+            modelBuilder.Entity<Personel>()
+                .HasIndex(b => b.MailAddress)
+                .IsUnique();
+
             modelBuilder.Entity<Nobet>()
                 .HasMany(b => b.Nobetciler)
                 .WithOne();
@@ -36,5 +40,6 @@ namespace NobetTakip
 
         public DbSet<Personel> Personels { get; set; }
         public DbSet<Nobet> Nobets { get; set; }
+        public DbSet<Isletme> Isletmeler { get; set; }
     }
 }

@@ -16,11 +16,9 @@ namespace NobetTakip.Models
         public Guid PersonelId { get; set; }
         public Isletme Isletme { get; set; }
         public string RealName { get; set; }
-        public string Username { get; set; }
         public string MailAddress { get; set; }
         public string GSMNo { get; set; }
         public string Password { get; set; }
-        public bool RememberMe { get; set; }
         public bool IsAdmin { get;set; }
     }
 }
