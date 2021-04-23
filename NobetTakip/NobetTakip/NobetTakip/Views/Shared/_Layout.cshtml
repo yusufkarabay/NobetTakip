@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -194,22 +198,22 @@
                     flex-direction: row;
                 }
 
-                .nobet-data .info-row.title p, .nobet-data .info-row a p {
-                    flex-grow: 1;
-                    color: #010929;
-                    font-weight: 600;
-                    font-style: normal;
-                    font-size: 14px;
-                    color: #010929;
-                }
-
-                .nobet-data .info-row.title svg, .nobet-data .info-row a svg {
-                    stroke: #010929;
-                }
-
-                    .nobet-data .info-row.title svg.action {
-                        stroke: #2F80ED;
+                    .nobet-data .info-row.title p, .nobet-data .info-row a p {
+                        flex-grow: 1;
+                        color: #010929;
+                        font-weight: 600;
+                        font-style: normal;
+                        font-size: 14px;
+                        color: #010929;
                     }
+
+                    .nobet-data .info-row.title svg, .nobet-data .info-row a svg {
+                        stroke: #010929;
+                    }
+
+                        .nobet-data .info-row.title svg.action {
+                            stroke: #2F80ED;
+                        }
 
 
                 .nobet-data .info-row.timepill {
@@ -323,8 +327,8 @@
             </a>
             <div class="logged-user">
                 <div class="user-info">
-                    <p>@Context.Request.Cookies["NO_UserRealName"].ToString()</p>
-                    <span>Düzce 112 ACMM</span>
+                    <p>@ViewData["RealName"]</p>
+                    <span>@ViewData["IsletmeAdi"]</span>
                 </div>
                 <div class="user-img" src=""></div>
                 <a href="/account/logout">Çıkış Yap</a>

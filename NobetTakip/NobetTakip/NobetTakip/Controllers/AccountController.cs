@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using NobetTakip.ViewModel;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace NobetTakip.Controllers
 {
     public class AccountController : Controller
     {
         AppDbContext _context;
+        AuthViewModel _avm;
 
-        public AccountController(AppDbContext appDbContext)
+        public AccountController(AppDbContext appDbContext, AuthViewModel avm)
         {
             _context = appDbContext;
+            _avm = avm;
         }
 
         public IActionResult Index()
@@ -37,17 +42,40 @@ namespace NobetTakip.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> LoginAsync(LoginViewModel loginViewModel)
         {
             if (ModelState.IsValid)
             {
                 try { 
                     Personel p = _context.Personels.First(p => p.MailAddress.Equals(loginViewModel.MailAddress) && p.Password.Equals(loginViewModel.Password));
-                    if(loginViewModel.RememberMe) { 
-                        Response.Cookies.Append("NO_UserMailAdress", p.MailAddress);
-                        Response.Cookies.Append("NO_UserRealName", p.RealName);
-                        //Response.Cookies.Append("NO_UserIsletme", p.Isletme.IsletmeAdi);
+                    _avm.RealName = p.RealName;
+                    _avm.IsletmeAdi = p.MailAddress;
+
+                    List<Claim> userClaims = new List<Claim>();
+
+                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, p.PersonelId.ToString()));
+                    userClaims.Add(new Claim(ClaimTypes.Email, p.MailAddress));
+                    userClaims.Add(new Claim(ClaimTypes.GivenName, p.RealName));
+
+                    if (p.IsAdmin)
+                    {
+                        userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
                     }
+
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var authProperties = new AuthenticationProperties
+                    {
+                        IsPersistent = loginViewModel.RememberMe
+                    };
+
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),
+                        authProperties
+                    );
 
                     return RedirectToAction("Index", "Home");
                 }

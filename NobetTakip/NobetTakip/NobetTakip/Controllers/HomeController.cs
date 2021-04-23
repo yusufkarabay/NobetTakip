@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NobetTakip.Models;
 using NobetTakip.ViewModel;
@@ -7,20 +8,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NobetTakip.Controllers
 {
+
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         List<Personel> personels = new List<Personel>();
         private readonly Random rnd = new Random(0);
 
+        [ViewData]
+        public string RealName { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        [ViewData]
+        public string IsletmeAdi { get; set; }
+        
+        
+
+        public HomeController(ILogger<HomeController> logger, AuthViewModel avm)
         {
+
+            RealName = avm.RealName;
+            IsletmeAdi = avm.IsletmeAdi;
+
             _logger = logger;
 
             Personel p1 = new Personel();
@@ -47,7 +62,6 @@ namespace NobetTakip.Controllers
 
         public IActionResult Index()
         {
-
             List<Nobet> nobetler = new List<Nobet>();
             Nobet n1 = new Nobet();
             n1.IsEnYakin = true;
@@ -85,6 +99,12 @@ namespace NobetTakip.Controllers
             HomeViewModel hvm = new HomeViewModel();
             hvm.Nobetler = nobetler;
             hvm.BildirimSayisi = bildirimSayisi;
+
+            string realName = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.GivenName).Value;
+            string isletmeAdi = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+
+            hvm.IsletmeAdi = isletmeAdi;
+            hvm.RealName = realName;
 
             return View(hvm);
         }
