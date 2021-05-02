@@ -14,6 +14,9 @@ namespace NobetTakip.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid PersonelId { get; set; }
+
+        [ForeignKey("IsletmeId")]
+        public Guid IsletmeId { get; set; }
         public Isletme Isletme { get; set; }
         public string RealName { get; set; }
         public string MailAddress { get; set; }

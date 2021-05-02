@@ -23,7 +23,6 @@ namespace NobetTakip
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
@@ -31,8 +30,9 @@ namespace NobetTakip
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
 
-            // add singleton yerine addTransient ya da AddScoped olacak
-            services.AddSingleton<AuthViewModel>(new AuthViewModel());
+            services.AddSession();
+            services.AddMemoryCache();
+
             services.AddControllersWithViews();
         }
 
@@ -57,6 +57,7 @@ namespace NobetTakip
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();// oldu
 

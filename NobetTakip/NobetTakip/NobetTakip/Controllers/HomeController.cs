@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 using NobetTakip.Models;
 using NobetTakip.ViewModel;
 using System;
@@ -22,19 +23,25 @@ namespace NobetTakip.Controllers
         List<Personel> personels = new List<Personel>();
         private readonly Random rnd = new Random(0);
 
+        AppDbContext _context;
+
         [ViewData]
         public string RealName { get; set; }
 
         [ViewData]
         public string IsletmeAdi { get; set; }
-        
-        
 
-        public HomeController(ILogger<HomeController> logger, AuthViewModel avm)
+        [ViewData]
+        public bool IsAdmin { get; set; }
+
+        public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
 
-            RealName = avm.RealName;
-            IsletmeAdi = avm.IsletmeAdi;
+            RealName = "Personel Adı"; //HttpContext.Session.GetString("RealName");
+            IsletmeAdi = "İşletme Adı"; //HttpContext.Session.GetString("IsletmeAdi");
+            IsAdmin = true; //HttpContext.Session.GetString("IsAdmin");
+
+            _context = context;
 
             _logger = logger;
 
@@ -103,9 +110,6 @@ namespace NobetTakip.Controllers
             string realName = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.GivenName).Value;
             string isletmeAdi = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
 
-            hvm.IsletmeAdi = isletmeAdi;
-            hvm.RealName = realName;
-
             return View(hvm);
         }
 
@@ -125,7 +129,24 @@ namespace NobetTakip.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    
+
+        [Route("nobetler")]
+        public IActionResult Nobetler()
+        {
+            Guid isletmeId = Guid.Empty;
+            bool bParsed = Guid.TryParse(HttpContext.User.Claims.First(c => c.Type == "IsletmeId").Value.ToString(), out isletmeId);
+            if(bParsed) {
+
+                HomeViewModel hvm = new HomeViewModel();
+                hvm.Nobetler = _context.Nobets.Where(m => m.Isletme.IsletmeId == isletmeId && m.Date >= DateTime.Now).ToList();
+                return View(hvm);
+            } else
+            {
+                return View(new HomeViewModel()); // boş liste;
+            }
+        }
+
+
         [Route("nobet/{id}")]
         public IActionResult NobetDetay()
         {

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using NobetTakip.ViewModel;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,12 +17,11 @@ namespace NobetTakip.Controllers
     public class AccountController : Controller
     {
         AppDbContext _context;
-        AuthViewModel _avm;
+        private IAuthViewModel _avm;
 
-        public AccountController(AppDbContext appDbContext, AuthViewModel avm)
+        public AccountController(AppDbContext appDbContext)
         {
             _context = appDbContext;
-            _avm = avm;
         }
 
         public IActionResult Index()
@@ -48,18 +48,23 @@ namespace NobetTakip.Controllers
             {
                 try { 
                     Personel p = _context.Personels.First(p => p.MailAddress.Equals(loginViewModel.MailAddress) && p.Password.Equals(loginViewModel.Password));
-                    _avm.RealName = p.RealName;
-                    _avm.IsletmeAdi = p.MailAddress;
+                    //_avm.SetRealName(p.RealName);
+                    //_avm.SetIsletmeAdi(p.MailAddress);
+                    
+                    HttpContext.Session.SetString("RealName", p.RealName);
+                    HttpContext.Session.SetString("IsletmeAdi", p.MailAddress);
 
                     List<Claim> userClaims = new List<Claim>();
 
                     userClaims.Add(new Claim(ClaimTypes.NameIdentifier, p.PersonelId.ToString()));
                     userClaims.Add(new Claim(ClaimTypes.Email, p.MailAddress));
                     userClaims.Add(new Claim(ClaimTypes.GivenName, p.RealName));
+                    userClaims.Add(new Claim("IsletmeId", p.IsletmeId.ToString()));
 
                     if (p.IsAdmin)
                     {
                         userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
+                        HttpContext.Session.SetString("IsAdmin", "admin");
                     }
 
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
