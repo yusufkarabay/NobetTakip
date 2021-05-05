@@ -1,6 +1,6 @@
 using System;
 
-namespace NobetTakip.Models
+namespace NobetTakip.ViewModel
 {
     public class ErrorViewModel
     {

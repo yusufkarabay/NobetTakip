@@ -20,4 +20,8 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NobetTakip.Core\NobetTakip.Core.csproj" />
+  </ItemGroup>
+
 </Project>

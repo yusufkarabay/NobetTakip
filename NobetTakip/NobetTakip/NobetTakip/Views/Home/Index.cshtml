@@ -12,7 +12,7 @@
 </a>
 <div class="section-header mt-40">En yakın nöbetiniz</div>
 
-@foreach (Nobet nobet in Model.Nobetler)
+@foreach (NobetTakip.Core.Models.Nobet nobet in Model.Nobetler)
 {
 
     <a href="/nobet/@nobet.NobetId" class="nobet-data @(@nobet.IsEnYakin ? "first" : "")">

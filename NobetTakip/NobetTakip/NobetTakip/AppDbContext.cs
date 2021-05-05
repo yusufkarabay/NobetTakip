@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NobetTakip.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NobetTakip.Core.Models;
 
 namespace NobetTakip
 {

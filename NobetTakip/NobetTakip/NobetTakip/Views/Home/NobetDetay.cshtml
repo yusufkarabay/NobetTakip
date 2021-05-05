@@ -1,4 +1,4 @@
-﻿@model NobetTakip.Models.Nobet
+﻿@model NobetTakip.Core.Models.Nobet
 @{
     ViewData["Title"] = "Nöbet Bilgileri " + Model.NobetId;
 }
@@ -55,7 +55,7 @@
 <div class="nobet-data">
 
     @for(int i = 0; i < Model.Nobetciler.Count; i++)
-    { Personel p = Model.Nobetciler[i];
+    { NobetTakip.Core.Models.Personel p = Model.Nobetciler[i];
         
     <div class="info-row title">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

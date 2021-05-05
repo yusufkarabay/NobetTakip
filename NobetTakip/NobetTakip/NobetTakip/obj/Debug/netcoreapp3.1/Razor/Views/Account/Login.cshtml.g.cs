@@ -21,13 +21,13 @@ using NobetTakip;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\Views\_ViewImports.cshtml"
-using NobetTakip.Models;
+using NobetTakip.Core.Models;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3a466ca1d7bff0a0e955521ac88131a9b3a07b6b", @"/Views/Account/Login.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f2a3efa6b9b6dd63bfd92465d072c6d2e8fbf005", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1cb3810195ec3bb7906cbec3f84a26e880829c6", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_Login : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<NobetTakip.ViewModel.LoginViewModel>
     {
         #pragma warning disable 1998

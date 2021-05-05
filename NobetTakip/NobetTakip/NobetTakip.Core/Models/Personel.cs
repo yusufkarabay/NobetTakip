@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NobetTakip.Models
+namespace NobetTakip.Core.Models
 {
     [Table("Personel")]
     public class Personel

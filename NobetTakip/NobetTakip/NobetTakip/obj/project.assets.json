@@ -1888,6 +1888,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "NobetTakip.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/NobetTakip.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/NobetTakip.Core.dll": {}
+        }
       }
     }
   },
@@ -6523,6 +6533,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "NobetTakip.Core/1.0.0": {
+      "type": "project",
+      "path": "../NobetTakip.Core/NobetTakip.Core.csproj",
+      "msbuildProject": "../NobetTakip.Core/NobetTakip.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6533,6 +6548,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.5",
       "Newtonsoft.Json >= 12.0.3",
+      "NobetTakip.Core >= 1.0.0",
       "System.Net.Http >= 4.3.4"
     ]
   },
@@ -6567,7 +6583,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj": {
+              "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

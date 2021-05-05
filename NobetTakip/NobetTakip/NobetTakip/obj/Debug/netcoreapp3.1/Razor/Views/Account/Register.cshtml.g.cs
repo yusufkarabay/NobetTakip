@@ -21,13 +21,13 @@ using NobetTakip;
 #nullable disable
 #nullable restore
 #line 2 "C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\Views\_ViewImports.cshtml"
-using NobetTakip.Models;
+using NobetTakip.Core.Models;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"54a2d100353a195786df6dfd0ebc33bcac02f54d", @"/Views/Account/Register.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f2a3efa6b9b6dd63bfd92465d072c6d2e8fbf005", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f1cb3810195ec3bb7906cbec3f84a26e880829c6", @"/Views/_ViewImports.cshtml")]
     public class Views_Account_Register : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<NobetTakip.ViewModel.RegisterViewModel>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("needs-validation"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -84,7 +84,7 @@ using NobetTakip.Models;
 #line hidden
 #nullable disable
             WriteLiteral("        <div class=\"col-12\">\r\n            <h4 class=\"mb-3\">Personel Bilgileri</h4>\r\n            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "54a2d100353a195786df6dfd0ebc33bcac02f54d4997", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "54a2d100353a195786df6dfd0ebc33bcac02f54d5002", async() => {
                 WriteLiteral("\r\n                <div class=\"row g-3\">\r\n                    <div class=\"col-sm-12\">\r\n                        <label for=\"firstName\" class=\"form-label\">Adınız Soyadınız</label>\r\n                        ");
 #nullable restore
 #line 22 "C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip\Views\Account\Register.cshtml"

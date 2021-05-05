@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NobetTakip.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +6,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 using NobetTakip.ViewModel;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using NobetTakip.Core.Models;
+using System.Text;
 
 namespace NobetTakip.Controllers
 {
@@ -46,8 +48,15 @@ namespace NobetTakip.Controllers
         {
             if (ModelState.IsValid)
             {
-                try { 
-                    Personel p = _context.Personels.First(p => p.MailAddress.Equals(loginViewModel.MailAddress) && p.Password.Equals(loginViewModel.Password));
+                try {
+
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(loginViewModel), Encoding.UTF8, "application/json");
+                    HttpClient client = new HttpClient();
+                    var request = await client.PostAsync("http://localhost:5002/api/account/login", content);
+                    string apiResponse = await request.Content.ReadAsStringAsync();
+                    Personel p = JsonConvert.DeserializeObject<Personel>(apiResponse);
+
+                    
                     //_avm.SetRealName(p.RealName);
                     //_avm.SetIsletmeAdi(p.MailAddress);
                     
