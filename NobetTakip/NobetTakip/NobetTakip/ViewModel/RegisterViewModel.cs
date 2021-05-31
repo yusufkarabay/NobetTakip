@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NobetTakip.ViewModel
 {
-    public class RegisterViewModel
+    public class RegisterViewModel : BaseViewModel
     {
         public string IsletmeKodu { get; set; }
         public string RealName { get; set; }

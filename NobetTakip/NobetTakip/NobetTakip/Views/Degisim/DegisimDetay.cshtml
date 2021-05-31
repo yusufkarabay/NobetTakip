@@ -1,0 +1,128 @@
+﻿@model NobetTakip.Core.Models.Degisim
+@{ 
+    ViewData["Title"] = "Nöbet Değişim Onayı";
+
+    string dnClass(string dn)
+    {
+        if (dn == "GÜNDÜZ")
+            return "day";
+        else if (dn == "GECE")
+            return "night";
+        else return "allday";
+    }
+}
+
+<form method="post" action="">
+    @Html.HiddenFor(m => m.DegisimId)
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="section-header mt-40">Size Ait Nöbet Bilgileri</div>
+
+            <div class="nobet-data">
+                <div class="info-row">
+                    <div class=" timepill @dnClass(Model.FirstNobet.DayNightAsString)">
+                        @if (dnClass(Model.FirstNobet.DayNightAsString) == "day" || dnClass(Model.FirstNobet.DayNightAsString) == "allday")
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                            </svg>
+                        }
+                        else
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                            </svg>
+                        }
+                        <p>@Model.FirstNobet.DayNightAsString</p>
+                    </div>
+                </div>
+                <div class="info-row title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p>@Model.FirstNobet.Date.ToString("dd MMMM dddd")</p>
+                </div>
+                <div class="info-row normal">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>@Model.FirstNobet.PeriodAsString</p>
+                </div>
+            </div>
+
+            <div class="section-header mt-40">Nöbetteki Kişiler</div>
+
+            <div class="nobet-data">
+
+                @for (int i = 0; i < Model.FirstNobet.Personels.Count; i++)
+                {
+                    NobetTakip.Core.Models.Personel p = Model.FirstNobet.Personels[i];
+
+                    <div class="info-row title">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <p>@p.RealName</p>
+                    </div>
+                }
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="section-header mt-40">Talep Edilen Nöbet Bilgileri</div>
+
+            <div class="nobet-data">
+                <div class="info-row">
+                    <div class=" timepill @dnClass(Model.SecondNobet.DayNightAsString)">
+                        @if (dnClass(Model.SecondNobet.DayNightAsString) == "day" || dnClass(Model.SecondNobet.DayNightAsString) == "allday")
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+                            </svg>
+                        }
+                        else
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                            </svg>
+                        }
+                        <p>@Model.SecondNobet.DayNightAsString</p>
+                    </div>
+                </div>
+                <div class="info-row title">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p>@Model.SecondNobet.Date.ToString("dd MMMM dddd")</p>
+                </div>
+                <div class="info-row normal">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p>@Model.SecondNobet.PeriodAsString</p>
+                </div>
+            </div>
+
+            <div class="section-header mt-40">Nöbetteki Kişiler</div>
+
+            <div class="nobet-data">
+
+                @for (int i = 0; i < Model.SecondNobet.Personels.Count; i++)
+                {
+                    NobetTakip.Core.Models.Personel p = Model.SecondNobet.Personels[i];
+
+                    <div class="info-row title">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <p>@p.RealName</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="my-5 row">
+        <input type="submit" class="btn btn-success" disabled="@Model.IsAccepted" value="Değişim Talebini Onaylayın" />
+    </div>
+</form>

@@ -26,20 +26,28 @@ namespace NobetTakip.WebAPI
             // kayıt ekranında kullanıcının girdiği şifreleri kontrol et ve ona göre kayıt yap.
 
             modelBuilder.Entity<Personel>()
-                .HasIndex(b => b.MailAddress)
-                .IsUnique();
+                .HasKey(p => new { p.PersonelId });
 
-            modelBuilder.Entity<Nobet>()
-                .HasMany(b => b.Nobetciler)
-                .WithOne();
+            modelBuilder.Entity<Personel>()
+               .HasIndex(p => p.MailAddress)
+               .IsUnique();
+
+            modelBuilder.Entity<Isletme>()
+                .HasKey(i => new { i.IsletmeId });
 
             modelBuilder.Entity<Isletme>()
                .HasIndex(u => u.IsletmeKod)
                .IsUnique();
+
+            modelBuilder.Entity<Nobet>()
+                .HasKey(n => new { n.NobetId });
+
         }
 
         public DbSet<Personel> Personels { get; set; }
         public DbSet<Nobet> Nobets { get; set; }
         public DbSet<Isletme> Isletmeler { get; set; }
+        public DbSet<Bildirim> Bildirimler { get; set; }
+        public DbSet<Degisim> Degisimler { get; set; }
     }
 }

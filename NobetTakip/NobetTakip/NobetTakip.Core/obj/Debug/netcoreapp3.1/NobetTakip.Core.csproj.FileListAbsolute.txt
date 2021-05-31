@@ -6,3 +6,30 @@ C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\Nobet
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csproj.CoreCompileInputs.cache
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.dll
 C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.pdb
+C:\Users\yusuf\OneDrive\Masaüstü\GitHub\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csprojAssemblyReference.cache
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.deps.json
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.dll
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.pdb
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.AssemblyInfoInputs.cache
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.AssemblyInfo.cs
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csproj.CoreCompileInputs.cache
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.dll
+C:\Users\Hasan Cemre Ok\source\repos\NobetTakip\NobetTakip\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.pdb
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.deps.json
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.dll
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.pdb
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csprojAssemblyReference.cache
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.AssemblyInfoInputs.cache
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.AssemblyInfo.cs
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csproj.CoreCompileInputs.cache
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.dll
+C:\Users\yusuf\OneDrive\Masaüstü\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.pdb
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.deps.json
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.dll
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\bin\Debug\netcoreapp3.1\NobetTakip.Core.pdb
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csprojAssemblyReference.cache
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.AssemblyInfoInputs.cache
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.AssemblyInfo.cs
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.csproj.CoreCompileInputs.cache
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.dll
+C:\Users\yusuf\OneDrive\Masaüstü\2020-2021 Bahar\Bitirme Tezi\192113204-Yusuf Karabay Bitirme Tezi\NobetTakip\NobetTakip\NobetTakip.Core\obj\Debug\netcoreapp3.1\NobetTakip.Core.pdb

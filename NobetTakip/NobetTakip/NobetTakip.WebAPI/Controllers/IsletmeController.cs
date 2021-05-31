@@ -10,7 +10,7 @@ using NobetTakip.Core.Models;
 
 namespace NobetTakip.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/isletme")]
     [ApiController]
     public class IsletmeController : ControllerBase
     {
@@ -21,14 +21,29 @@ namespace NobetTakip.WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Isletmes
+        [HttpGet("{id}/personels")]
+        public async Task<ActionResult<IEnumerable<Personel>>> GetIsletmePersonels(Guid id)
+        {
+            return await _context.Personels
+                .Where(p => p.IsletmeId.Equals(id)).ToListAsync();
+        }
+
+        // GET: api/Nobet
+        [HttpGet("{id}/nobets")]
+        public async Task<ActionResult<IEnumerable<Nobet>>> GetIsletmeNobets(Guid id)
+        {
+            return await _context.Nobets
+                .Where(n => n.IsletmeId.Equals(id) && n.Date >= DateTime.Now.Date)
+                .OrderBy(n => n.Date)
+                .ToListAsync();
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Isletme>>> GetIsletmeler()
         {
             return await _context.Isletmeler.ToListAsync();
         }
 
-        // GET: api/Isletmes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Isletme>> GetIsletme(Guid id)
         {
@@ -42,9 +57,20 @@ namespace NobetTakip.WebAPI.Controllers
             return isletme;
         }
 
-        // PUT: api/Isletmes/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpGet("code/{code}")]
+        public async Task<ActionResult<Isletme>> GetIsletme(string code)
+        {
+            var isletme = await _context.Isletmeler.Where(i => i.IsletmeKod.Equals(code)).FirstOrDefaultAsync();
+
+            if (isletme == null)
+            {
+                return NotFound();
+            }
+
+            return isletme;
+        }
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutIsletme(Guid id, Isletme isletme)
         {
@@ -74,9 +100,6 @@ namespace NobetTakip.WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Isletmes
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<Isletme>> PostIsletme(Isletme isletme)
         {
@@ -86,7 +109,6 @@ namespace NobetTakip.WebAPI.Controllers
             return CreatedAtAction("GetIsletme", new { id = isletme.IsletmeId }, isletme);
         }
 
-        // DELETE: api/Isletmes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Isletme>> DeleteIsletme(Guid id)
         {

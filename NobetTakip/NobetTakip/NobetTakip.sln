@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NobetTakip", "NobetTakip\No
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NobetTakip.WebAPI", "NobetTakip.WebAPI\NobetTakip.WebAPI.csproj", "{3CBDA649-605C-4D3E-8AC5-AAC17787A9FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NobetTakip.Core", "NobetTakip.Core\NobetTakip.Core.csproj", "{A1E2E745-7D0F-4465-B4BF-6397DB77DAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NobetTakip.Core", "NobetTakip.Core\NobetTakip.Core.csproj", "{A1E2E745-7D0F-4465-B4BF-6397DB77DAD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

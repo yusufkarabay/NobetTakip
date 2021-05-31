@@ -1,0 +1,44 @@
+﻿@model List<Personel>;
+@{
+    ViewData["Title"] = "İşletme Personelleri";
+}
+
+<div class="alert alert-warning">
+    Personelleriniz, sisteme kayıtlarını <a href="/account/register">bu bağlantı üzerinden</a> yapabilirler.
+</div>
+
+<div class="nobet-data">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Personel No.</th>
+                <th scope="col">Personel Adı</th>
+                <th scope="col">Mail Adresi</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Durum</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Personel p in Model)
+            {
+                <tr>
+                    <td>@p.PersonelId</td>
+                    <td>@p.RealName</td>
+                    <td>@p.MailAddress</td>
+                    <td>@p.GSMNo</td>
+                    <td>
+                        @if (p.IsAdmin)
+                        {
+                            <p>Admin</p>
+                        }
+                </td>
+                <td>
+                    <a href="/personel/@p.PersonelId">Düzenle</a>
+                    <a href="/personel/@p.PersonelId/sil">Sil</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

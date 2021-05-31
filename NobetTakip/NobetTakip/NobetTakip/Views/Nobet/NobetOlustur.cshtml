@@ -1,0 +1,88 @@
+﻿@model NobetTakip.ViewModel.NobetCreateViewModel
+@{
+    ViewData["Title"] = "Nöbet Oluştur";
+
+    string dnClass(string dn)
+    {
+        if (dn == "GÜNDÜZ")
+            return "day";
+        else if (dn == "GECE")
+            return "night";
+        else return "allday";
+    }
+}
+
+<div class="section-header mt-40">Nöbet Bilgileri</div>
+
+<form method="post" asp-action="Olustur" asp-controller="Nobet">
+    @Html.HiddenFor(m => m.NobetId)
+    <div class="nobet-data">
+        <div class="row">
+            <div class="col-6">
+                <h6 class="mb-4">Nöbet Tarihi</h6>
+                <div class="form-group">
+                    <label>Tarih Seçiniz</label>
+                    @Html.TextBoxFor(m => m.DateString, new { @class = "form-control", @type = "date" })
+                    <!--<input type="date" class="form-control" asp-for="Date" />-->
+                </div>
+            </div>
+            <div class="col-6 d-flex flex-column">
+                <h6 class="mb-4">Nöbet Zamanı</h6>
+                <label>Tek Vardiyalı Sistem</label>
+                <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                        @Html.RadioButtonFor(m => m.Period, 0) 00:00 - 24:00
+                        <!--<input type="radio" name="Period" id="option1" value="0" autocomplete="off"> 00:00 - 24:00-->
+                    </label>
+                </div>
+                <label>Çift Vardiyalı Sistem</label>
+                <div class="mb-4 btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn  btn-secondary">
+                        @Html.RadioButtonFor(m => m.Period, 1) 08:00 - 20:00
+                        <!--<input type="radio" name="Period" id="option2" value="1" autocomplete="off"> 08:00 - 20:00-->
+                    </label>
+                    <label class="btn btn-secondary">
+                        @Html.RadioButtonFor(m => m.Period, 2) 20:00 - 08:00
+                        <!--<input type="radio" name="Period" id="option3" value="2" autocomplete="off"> 20:00 - 08:00-->
+                    </label>
+                </div>
+                <label>3 Vardiyalı Sistem</label>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                        @Html.RadioButtonFor(m => m.Period, 3) 00:00 - 08:00
+                        <!--<input type="radio" name="Period" id="option4" value="3" autocomplete="off"> 00:00 - 08:00 -->
+                    </label>
+                    <label class="btn btn-secondary">
+                        @Html.RadioButtonFor(m => m.Period, 4) 08:00 - 16:00
+                        <!--<input type="radio" name="Period" id="option5" value="4" autocomplete="off"> 08:00 - 16:00-->
+                    </label>
+                    <label class="btn btn-secondary">
+                        @Html.RadioButtonFor(m => m.Period, 5) 16:00 - 24:00
+                        <!--<input type="radio" name="Period" id="option6" value="5" autocomplete="off"> 16:00 - 24:00 -->
+                    </label>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="nobet-data mb-4">
+            <h6 class="mb-4">Personel Seçimi</h6>
+            <div class="row">
+                <div class="col-12">
+                    @for (int p = 0; p < Model.Personels.Count; p++)
+                    {
+                        Personel personel = Model.Personels[p];
+                        bool isSelected = Model.SelectedPersonels != null && Model.SelectedPersonels.Contains(personel.PersonelId.ToString());
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="SelectedPersonels"
+                                   for="personelRadio+@p" value="@personel.PersonelId" checked="@isSelected">
+                            <label class="form-check-label" for="personelRadio+@p">
+                                @personel.RealName
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-success mb-5" value="Nöbeti Kaydet" />
+    </form>

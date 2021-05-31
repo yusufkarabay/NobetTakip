@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Newtonsoft.Json;
 using NobetTakip.Core.Models;
 using NobetTakip.WebAPI;
 
@@ -21,14 +24,12 @@ namespace NobetTakip.WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Personel
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Personel>>> GetPersonels()
         {
             return await _context.Personels.ToListAsync();
         }
 
-        // GET: api/Personel/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Personel>> GetPersonel(Guid id)
         {
@@ -42,12 +43,23 @@ namespace NobetTakip.WebAPI.Controllers
             return personel;
         }
 
-        // PUT: api/Personel/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPersonel(Guid id, Personel personel)
+        [HttpGet("mail/{mail}")]
+        public async Task<ActionResult<Personel>> GetPersonel(string mail)
         {
+            var personel = await _context.Personels.Where(p => p.MailAddress.Equals(mail)).FirstOrDefaultAsync();
+
+            if (personel == null)
+            {
+                return NotFound();
+            }
+
+            return personel;
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutPersonel(Guid id,[FromBody] Personel personel)
+        {
+            //Personel personel = JsonConvert.DeserializeObject<Personel>(personelJson);
             if (id != personel.PersonelId)
             {
                 return BadRequest();
@@ -74,19 +86,20 @@ namespace NobetTakip.WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Personel
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Personel>> PostPersonel(Personel personel)
+        public async Task<ActionResult<Personel>> PostPersonel([FromBody] Personel personel)
         {
+            try { 
             _context.Personels.Add(personel);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPersonel", new { id = personel.PersonelId }, personel);
+            } catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
 
-        // DELETE: api/Personel/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Personel>> DeletePersonel(Guid id)
         {
@@ -100,6 +113,51 @@ namespace NobetTakip.WebAPI.Controllers
             await _context.SaveChangesAsync();
 
             return personel;
+        }
+
+        [HttpGet]
+        [Route("{id}/nobetler")]
+        public async Task<ActionResult<IEnumerable<Nobet>>> GetNobetsForPersonel(Guid id)
+        {
+            try
+            {
+                string personelId = id.ToString();
+                var nobets = from n in _context.Nobets
+                                where EF.Functions.Like(n.PersonelIds, $"%{personelId}%") && n.Date >= DateTime.Now.Date
+                                orderby n.Date
+                                select n;
+
+                return await nobets.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return new List<Nobet>();
+        }
+
+        [HttpGet]
+        [Route("{id}/bildirimler")]
+        public async Task<ActionResult<IEnumerable<Bildirim>>> GetBildirimlerForPersonel(Guid id)
+        {
+            try
+            {
+                string personelId = id.ToString();
+                var bildirimler = 
+                    _context.Bildirimler
+                    .Where(m => m.PersonelId == id)
+                    .OrderByDescending(m => m.Date)
+                    .ToListAsync();
+
+                return await bildirimler;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return new List<Bildirim>();
         }
 
         private bool PersonelExists(Guid id)

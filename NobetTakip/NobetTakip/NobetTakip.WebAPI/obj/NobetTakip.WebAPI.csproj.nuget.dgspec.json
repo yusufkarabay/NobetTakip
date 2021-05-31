@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj": {}
+    "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj": {
+    "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj",
+        "projectUniqueName": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj",
         "projectName": "NobetTakip.Core",
-        "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj",
+        "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj",
         "packagesPath": "C:\\Users\\yusuf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\obj\\",
+        "outputPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -58,18 +58,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj": {
+    "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj",
         "projectName": "NobetTakip.WebAPI",
-        "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj",
+        "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\NobetTakip.WebAPI.csproj",
         "packagesPath": "C:\\Users\\yusuf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\obj\\",
+        "outputPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -90,8 +90,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj": {
-                "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\GitHub\\NobetTakip\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj"
+              "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj": {
+                "projectPath": "C:\\Users\\yusuf\\OneDrive\\Masaüstü\\2020-2021 Bahar\\Bitirme Tezi\\192113204-Yusuf Karabay Bitirme Tezi\\NobetTakip\\NobetTakip\\NobetTakip.Core\\NobetTakip.Core.csproj"
               }
             }
           }
@@ -161,7 +161,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

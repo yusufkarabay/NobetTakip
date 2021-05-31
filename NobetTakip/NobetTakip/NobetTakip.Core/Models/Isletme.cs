@@ -15,7 +15,6 @@ namespace NobetTakip.Core.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid IsletmeId { get; set; }
         public string IsletmeAdi { get; set; }
-        
         public string IsletmeKod { get; set; }
         public string MailAddress { get; set; }
         public string Phone { get; set; }

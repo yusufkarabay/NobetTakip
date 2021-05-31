@@ -1,5 +1,7 @@
-﻿@{
-
+﻿@using Microsoft.AspNetCore.Http;
+@{
+    if (Context.Session.GetString("Nobsis_PersonelId") == null)
+        Context.Response.Redirect("/Account/Login");
 }
 
 <!DOCTYPE html>
@@ -35,6 +37,13 @@
             padding: 0;
         }
 
+        label {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        h6 { font-weight: 700; }
+
         .navbar {
             background-color: #010929;
         }
@@ -57,6 +66,7 @@
                     flex-direction: column;
                     justify-content: space-between;
                     height: 2rem;
+                    margin-right: 1rem;
                 }
 
                     .navbar .logged-user .user-info p {
@@ -89,6 +99,10 @@
                     background-color: cyan;
                 }
 
+                .navbar .logged-user .button {
+                    margin-right: 0;
+                }
+
         .bildirimler {
             text-decoration: none;
             width: 100%;
@@ -96,9 +110,16 @@
             flex-direction: row;
             align-items: center;
             padding: 10px 12px;
-            background-color: #EB5757;
             color: #FFFFFF;
             border-radius: 4px;
+        }
+
+        .bildirimler.zero-notification {
+            background-color: #FFF;
+        }
+
+        .bildirimler.has-notification {
+            background-color: #EB5757;
         }
 
             .bildirimler svg {
@@ -108,13 +129,29 @@
                 color: #FFF;
             }
 
+
+            .bildirimler.zero-notification svg {
+                color: #000000;
+            }
+
+            .bildirimler.has-notification svg {
+                color: #FFF;
+            }
+
             .bildirimler p {
                 flex-grow: 1;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 14px;
                 line-height: 17px;
-                color: #FFFFFF;
+            }
+
+            .bildirimler.zero-notification p {
+                color: #000000;
+            }
+
+            .bildirimler.has-notification p {
+                color: #FFF;
             }
 
             .bildirimler span.badge {
@@ -123,11 +160,19 @@
                 font-size: 12px;
                 line-height: 17px;
                 text-align: center;
-                color: #EB5757;
-                background-color: #ffffff;
                 width: 24px;
                 height: 24px;
                 border-radius: 50%;
+            }
+
+            .bildirimler.zero-notification span.badge {
+                color: #000;
+                background-color: #d0d0d0;
+            }
+
+            .bildirimler.has-notification span.badge {
+                color: #EB5757;
+                background-color: #ffffff;
             }
 
         .box-shadow {
@@ -162,6 +207,13 @@
 
             .nobet-data.first {
                 border-top-color: #EB5757;
+            }
+
+            .nobet-data .command-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: .5rem;
             }
 
 
@@ -215,15 +267,17 @@
                             stroke: #2F80ED;
                         }
 
-
-                .nobet-data .info-row.timepill {
-                    max-width: 90px;
+                .nobet-data .info-row .timepill {
+                    display: inline-flex;
+                    flex-direction: row;
+                    align-items: center;
+                    width: auto;
                     padding: .25rem .5rem;
                     border-radius: 4px;
                     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
                 }
 
-                    .nobet-data .info-row.timepill svg {
+                    .nobet-data .info-row .timepill svg {
                         min-width: 16px;
                         width: 16px;
                         min-height: 16px;
@@ -231,31 +285,38 @@
                         margin-right: 4px;
                     }
 
-                    .nobet-data .info-row.timepill p {
+                    .nobet-data .info-row .timepill p {
                         text-align: left;
                         flex-grow: 1;
                         font-weight: 700;
                         font-size: .75rem;
+                        line-height: 1;
                         letter-spacing: -0.05em;
                     }
 
-
-                    .nobet-data .info-row.timepill.day {
+                    .nobet-data .info-row .timepill.day {
                         background: #F6ECB4;
                     }
 
-                        .nobet-data .info-row.timepill.day svg, .nobet-data .info-row.timepill.day p {
+                        .nobet-data .info-row .timepill.day svg, .nobet-data .info-row .timepill.day p {
                             color: #947301;
                         }
 
-                    .nobet-data .info-row.timepill.night {
+                    .nobet-data .info-row .timepill.night {
+                        background: #010929;
+                    }
+
+                        .nobet-data .info-row .timepill.night svg, .nobet-data .info-row .timepill.night p {
+                            color: #fff;
+                        }
+
+                    .nobet-data .info-row .timepill.allday {
                         background: #D0E5F8;
                     }
 
-                        .nobet-data .info-row.timepill.night svg, .nobet-data .info-row.timepill.night p {
+                        .nobet-data .info-row .timepill.allday svg, .nobet-data .info-row .timepill.allday p {
                             color: #2A7AC5;
                         }
-
 
 
         .modal {
@@ -309,6 +370,31 @@
             height: 20px;
         }
 
+        a.button,
+        button.button {
+            text-decoration: none;
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            padding: .5rem 1rem;
+            margin-right: 1rem;
+            border-radius: 6px;
+            border: 1px solid #F0F0F0;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: -0.05rem;
+            background: #FFF;
+            box-shadow: 0 3px 6px -3px rgba(0,0,0, .2);
+            color: #000;
+        }
+
+            a.button svg,
+            button.button svg {
+                width: 16px;
+                height: 16px;
+                margin-right: .25rem;
+            }
+
         @@media screen and (max-width: 576px) {
             .timepill {
                 position: absolute;
@@ -325,36 +411,39 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" /><circle cx="12" cy="13" r="4" /></svg>
                 <strong>Nöbsis</strong>
             </a>
-            @if(ViewData["IsAdmin"].ToString().Equals("True")) {
-            <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Yönetici Menüsü
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="/nobet/">Nöbet Yönetimi</a></li>
-                <li><a class="dropdown-item" href="/personel">Personel Yönetimi</a></li>
-                <li><a class="dropdown-item" href="/isletme">İşletme Bilgileri</a></li>
-              </ul>
-            </div>
+            @if (Context.Session.GetString("Nobsis_IsAdmin") != null && Context.Session.GetString("Nobsis_IsAdmin").ToString().Equals("admin"))
+            {
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Yönetici Menüsü
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/nobet">Nöbet Yönetimi</a></li>
+                        <li><a class="dropdown-item" href="/personel">Personel Yönetimi</a></li>
+                        <li><a class="dropdown-item" href="/isletme">İşletme Bilgileri</a></li>
+                    </ul>
+                </div>
             }
             <div class="logged-user">
                 <div class="user-info">
-                    <p>@ViewData["RealName"]</p>
-                    <span>@ViewData["IsletmeAdi"]</span>
+                    <p>@Context.Session.GetString("Nobsis_RealName")</p>
+                    <span>@Context.Session.GetString("Nobsis_Isletme")</span>
                 </div>
-                <div class="user-img" src=""></div>
-                <a href="/account/logout">Çıkış Yap</a>
+                <a class="logout-btn button" href="/account/logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    Çıkış Yap
+                </a>
             </div>
         </div>
-    </div>
-    <div class="container">
     </div>
 
     <div class="container">
         @RenderBody()
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="mt-40 border-top footer text-muted pt-4">
         <div class="container">
             Nöbsis Nöbet Takip Sistemi &copy; Yusuf Karabay, 2021.
         </div>

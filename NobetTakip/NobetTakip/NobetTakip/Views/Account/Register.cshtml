@@ -3,65 +3,71 @@
     Layout = "_Layout_UnAuth";
 }
 
-    <div class="pt-2 pb-5 text-center">
-        <img class="d-block mx-auto mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
-    </div>
+@if (Model.HasError)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
 
-    <!--<form method="POST" action="/account/login">-->
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
-    {
 
-        <div class="col-12">
-            <h4 class="mb-3">Personel Bilgileri</h4>
-            <form class="needs-validation" novalidate>
-                <div class="row g-3">
-                    <div class="col-sm-12">
-                        <label for="firstName" class="form-label">Adınız Soyadınız</label>
-                        @Html.TextBoxFor(f => f.RealName, new { title = "Eposta adresinizi giriniz.", @class = "form-control", @placeholder = "Adınız Soyadınız" })
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
-                    </div>
+<div class="pt-2 pb-5 text-center">
+    <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h2>Personel Kayıt Formu</h2>
+    <p class="lead">Aşağıdaki formu, işletme kodunuz ile birlikte doldurarak sisteme kayıt olun.</p>
+</div>
 
-                    <div class="col-md-4 col-sm-12">
-                        <label for="password-new" class="form-label">Şifrenizi Belirleyin</label>
-                        @Html.PasswordFor(f => f.Password, new { title = "Şifreniz", @class = "form-control", @placeholder = "Şifrenizi Belirleyin" })
-                    </div>
+<!--<form method="POST" action="/account/login">-->
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
 
-                    <div class="col-md-4 col-sm-12">
-                        <label for="password-re" class="form-label">Şifrenizi Tekrar Girin</label>
-                        @Html.PasswordFor(f => f.RePassword, new { title = "Şifrenizi Tekrar Girin", @class = "form-control", @placeholder = "Şifrenizi Tekrar Girin" })
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label for="email" class="form-label">Email <span class="text-muted"></span></label>
-                        @Html.TextBoxFor(f => f.MailAddress, new { title = "Mail adresiniz", @class = "form-control", @placeholder = "Mail adresinizi girin" })
-                        <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-12">
-                        <label for="gsmno" class="form-label">GSM No</label>
-                        @Html.TextBoxFor(f => f.GSMNo, new { title = "Telefon Numaranız", @class = "form-control", @placeholder = "Telefon Numaranız" })
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 mb-4">
-                        <label for="company-code" class="form-label">İşletme Kodunuz</label>
-                        @Html.TextBoxFor(f => f.IsletmeKodu, new { title = "İşletme Kodunuz", @class = "form-control", @placeholder = "İşletme Kodunuz" })
-                        <div class="invalid-feedback">
-                            Zip code required.
-                        </div>
+    <div class="col-6 offset-3">
+        <h4 class="mb-3">Personel Bilgileri</h4>
+        <form class="needs-validation" novalidate>
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="firstName" class="form-label">Adınız Soyadınız</label>
+                    @Html.TextBoxFor(f => f.RealName, new { title = "Eposta adresinizi giriniz.", @class = "form-control", @placeholder = "Adınız Soyadınız" })
+                    <div class="invalid-feedback">
+                        Valid first name is required.
                     </div>
                 </div>
 
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Kaydı Tamamla</button>
-            </form>
-        </div>
-    }
+                <div class="col-12">
+                    <label for="password-new" class="form-label">Şifrenizi Belirleyin</label>
+                    @Html.PasswordFor(f => f.Password, new { title = "Şifreniz", @class = "form-control", @placeholder = "Şifrenizi Belirleyin" })
+                </div>
+
+                <div class="col-12">
+                    <label for="password-re" class="form-label">Şifrenizi Tekrar Girin</label>
+                    @Html.PasswordFor(f => f.RePassword, new { title = "Şifrenizi Tekrar Girin", @class = "form-control", @placeholder = "Şifrenizi Tekrar Girin" })
+                </div>
+
+                <div class="col-12">
+                    <label for="email" class="form-label">Email <span class="text-muted"></span></label>
+                    @Html.TextBoxFor(f => f.MailAddress, new { title = "Mail adresiniz", @class = "form-control", @placeholder = "Mail adresinizi girin" })
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="gsmno" class="form-label">GSM No</label>
+                    @Html.TextBoxFor(f => f.GSMNo, new { title = "Telefon Numaranız", @class = "form-control", @placeholder = "Telefon Numaranız" })
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-4">
+                    <label for="company-code" class="form-label">İşletme Kodunuz</label>
+                    @Html.TextBoxFor(f => f.IsletmeKodu, new { title = "İşletme Kodunuz", @class = "form-control", @placeholder = "İşletme Kodunuz" })
+                    <div class="invalid-feedback">
+                        Zip code required.
+                    </div>
+                </div>
+            </div>
+
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Kaydı Tamamla</button>
+        </form>
+    </div>
+}
 

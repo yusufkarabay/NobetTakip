@@ -20,15 +20,12 @@ namespace NobetTakip.Controllers
     {
         AppDbContext _context;
         private IAuthViewModel _avm;
+        NobsisApiService apiService;
 
-        public AccountController(AppDbContext appDbContext)
+        public AccountController(AppDbContext appDbContext, NobsisApiService _apiService)
         {
             _context = appDbContext;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            apiService = _apiService;
         }
         
         [HttpGet]
@@ -39,7 +36,7 @@ namespace NobetTakip.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(new LoginViewModel());
+            return View(new LoginViewModel { ReturnPath = HttpContext.Request.Query["returnPath"].ToString() });
         }
 
         [AllowAnonymous]
@@ -49,31 +46,58 @@ namespace NobetTakip.Controllers
             if (ModelState.IsValid)
             {
                 try {
+                    LoginViewModel lvm = new LoginViewModel();
+                    lvm = loginViewModel;
 
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(loginViewModel), Encoding.UTF8, "application/json");
-                    HttpClient client = new HttpClient();
-                    var request = await client.PostAsync("http://localhost:5002/api/account/login", content);
-                    string apiResponse = await request.Content.ReadAsStringAsync();
-                    Personel p = JsonConvert.DeserializeObject<Personel>(apiResponse);
+                    Personel p = new Personel
+                    {
+                        MailAddress = loginViewModel.MailAddress,
+                        Password = loginViewModel.Password
+                    };
 
-                    
-                    //_avm.SetRealName(p.RealName);
-                    //_avm.SetIsletmeAdi(p.MailAddress);
-                    
-                    HttpContext.Session.SetString("RealName", p.RealName);
-                    HttpContext.Session.SetString("IsletmeAdi", p.MailAddress);
+                    try { 
+                        p = apiService.Login(p).Result;
+                    } catch(Exception ex)
+                    {
+                        lvm.HasError = true;
+                        lvm.ErrorMessage = "Girdiğiniz bilgilerle eşleşen bir kullanıcı bulunamadı";
+
+                        return View(lvm);
+                    }
+
+                    if (p == null)
+                    {
+                        lvm.HasError = true;
+                        lvm.ErrorMessage = "Girdiğiniz bilgilerle eşleşen bir kullanıcı bulunamadı";
+
+                        return View(lvm);
+                    }
+
+                    if(p.Isletme.IsActive != true)
+                    {
+                        lvm.HasError = true;
+                        lvm.ErrorMessage = "İşletme hesabınız aktif değil";
+
+                        return View(lvm);
+                    }
 
                     List<Claim> userClaims = new List<Claim>();
+                    userClaims.Add(new Claim("Nobsis_RealName", p.RealName));
+                    userClaims.Add(new Claim("Nobsis_PersonelId", p.PersonelId.ToString()));
+                    userClaims.Add(new Claim("Nobsis_MailAddress", p.MailAddress));
+                    userClaims.Add(new Claim("Nobsis_Isletme", p.Isletme.IsletmeAdi));
+                    userClaims.Add(new Claim("Nobsis_IsletmeId", p.IsletmeId.ToString()));
 
-                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, p.PersonelId.ToString()));
-                    userClaims.Add(new Claim(ClaimTypes.Email, p.MailAddress));
-                    userClaims.Add(new Claim(ClaimTypes.GivenName, p.RealName));
-                    userClaims.Add(new Claim("IsletmeId", p.IsletmeId.ToString()));
+                    HttpContext.Session.SetString("Nobsis_RealName", p.RealName);
+                    HttpContext.Session.SetString("Nobsis_PersonelId", p.PersonelId.ToString());
+                    HttpContext.Session.SetString("Nobsis_MailAddress", p.MailAddress);
+                    HttpContext.Session.SetString("Nobsis_Isletme", p.Isletme.IsletmeAdi);
+                    HttpContext.Session.SetString("Nobsis_IsletmeId", p.Isletme.IsletmeId.ToString());
 
                     if (p.IsAdmin)
                     {
                         userClaims.Add(new Claim(ClaimTypes.Role, "admin"));
-                        HttpContext.Session.SetString("IsAdmin", "admin");
+                        HttpContext.Session.SetString("Nobsis_IsAdmin", "admin");
                     }
 
                     var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -91,7 +115,10 @@ namespace NobetTakip.Controllers
                         authProperties
                     );
 
-                    return RedirectToAction("Index", "Home");
+                    if (!string.IsNullOrEmpty(loginViewModel.ReturnPath) && !string.IsNullOrWhiteSpace(loginViewModel.ReturnPath))
+                        return Redirect(loginViewModel.ReturnPath);
+                    else
+                        return RedirectToAction("Index", "Home");
                 }
                 catch (InvalidOperationException iex)
                 {
@@ -118,7 +145,8 @@ namespace NobetTakip.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return View();
+            RegisterViewModel rvm = new RegisterViewModel();
+            return View(rvm);
         }
 
         [AllowAnonymous]
@@ -127,57 +155,80 @@ namespace NobetTakip.Controllers
         {
             if (ModelState.IsValid)
             {
+                RegisterViewModel rvm = new RegisterViewModel();
+                rvm = rvModel;
+
+                if (!rvModel.Password.Equals(rvModel.RePassword))
+                {
+                    rvm.HasError = true;
+                    rvm.ErrorMessage = "Girdiğiniz şifreler birbiriyle uyuşmuyor";
+
+                    return View(rvm);
+                }
+
                 Isletme isletme = null;
                 Personel existing = null;
 
                 try {
-                    isletme = _context.Isletmeler.First(p => p.IsletmeKod.Equals(rvModel.IsletmeKodu));
+                    isletme =  apiService.GetIsletme(rvModel.IsletmeKodu).Result;
                 }
-                catch (InvalidOperationException iex)
+                catch (Exception iex)
                 {
-                    // girilen işletme koduna ait bir işletme bulunamadı
-                    return RedirectToAction("Error", "Home");
+                    rvm.HasError = true;
+                    rvm.ErrorMessage = "Girdiğiniz işletme kodu herhangi bir işletmeye ait değildir";
+
+                    return View(rvm);
                 }
 
-                if(isletme.IsActive == false)
+                if (isletme == null)
                 {
-                    // kayıt olunmak istenen işletme aktif değil.
-                    return RedirectToAction("Error", "Home");
+                    rvm.HasError = true;
+                    rvm.ErrorMessage = "Girdiğiniz işletme kodu herhangi bir işletmeye ait değildir";
+
+                    return View(rvm);
+                }
+
+                if (isletme != null && isletme.IsActive == false)
+                {
+                    rvm.HasError = true;
+                    rvm.ErrorMessage = "İşletme hesabınız aktif değil, bu sebeple kaydınız yapılamadı";
+
+                    return View(rvm);
                 }
 
                 try {
-                    existing = _context.Personels.First(p => p.MailAddress.Equals(rvModel.MailAddress));
+                    existing = apiService.GetPersonel(rvModel.MailAddress).Result;
                 }
-                catch (InvalidOperationException iex) { }
+                catch (Exception ex) {
+                    
+                }
 
                 if(existing != null)
                 {
-                    // girilen mail adresi zaten bir personele ait. ikinci kez kullanılamaz.
-                    return RedirectToAction("Error", "Home");
-                }
+                    rvm.HasError = true;
+                    rvm.ErrorMessage = "Girdiğiniz mail adresi başka bir hesapta kullanılıyor";
 
-                if (!rvModel.Password.Equals(rvModel.RePassword))
-                {
-                    // şifreleriniz uyuşmuyor.
-                    return RedirectToAction("Error", "Home");
+                    return View(rvm);
                 }
 
                 Personel newPersonel = new Personel();
                 newPersonel.MailAddress = rvModel.MailAddress;
-                newPersonel.Isletme = isletme;
+                newPersonel.IsletmeId = isletme.IsletmeId;
                 newPersonel.GSMNo = rvModel.GSMNo;
                 newPersonel.RealName = rvModel.RealName;
                 newPersonel.Password = rvModel.Password;
 
-                _context.Add(newPersonel);
-                int affected = _context.SaveChanges();
+                Personel pNew = apiService.CreatePersonel(newPersonel).Result;
 
-                if (affected > 0)
+                if (pNew.IsletmeId != Guid.Empty)
                 {
                     return RedirectToAction("Login", "Account");
                 } else
                 {
-                    return RedirectToAction("Error", "Home");
+                    rvm.HasError = true;
+                    rvm.ErrorMessage = "Girdiğiniz işletme kodu herhangi bir işletmeye ait değildir";
+
+                    return View(rvm);
                 }
             }
 

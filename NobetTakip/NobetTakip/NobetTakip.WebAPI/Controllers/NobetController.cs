@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NobetTakip.Core.Models;
 using NobetTakip.WebAPI;
+using Newtonsoft.Json.Linq;
+using NobetTakip.Core.DTO;
 
 namespace NobetTakip.WebAPI.Controllers
 {
@@ -19,13 +21,6 @@ namespace NobetTakip.WebAPI.Controllers
         public NobetController(AppDbContext context)
         {
             _context = context;
-        }
-
-        // GET: api/Nobet
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Nobet>>> GetNobets()
-        {
-            return await _context.Nobets.ToListAsync();
         }
 
         // GET: api/Nobet/5
@@ -100,6 +95,36 @@ namespace NobetTakip.WebAPI.Controllers
             await _context.SaveChangesAsync();
 
             return nobet;
+        }
+
+        [HttpGet("{id}/personels")]
+        public async Task<ActionResult<IEnumerable<Personel>>> GetNobetPersonels(Guid id)
+        {
+            string personelIds = null;
+            Nobet n = await _context.Nobets.Where(n => n.NobetId == id).FirstOrDefaultAsync();
+            personelIds = n.PersonelIds;
+
+            List<string> personelIdArray = personelIds.Split(',').ToList();
+            return await _context.Personels.Where(p => personelIdArray.Contains(p.PersonelId.ToString())).ToListAsync();
+        }
+
+        [HttpPost("search")]
+        public async Task<ActionResult<IEnumerable<Nobet>>> SearchNobet(NobetSearchModel model)
+        {
+            DateTime mDate = DateTime.Parse(model.DateString);
+
+            var nobets =
+                await _context.Nobets
+                .Where(m =>
+                    m.IsletmeId == model.IsletmeId &&
+                    (model.DateEnabled == false || m.Date == mDate) &&
+                    (model.PersonelId == Guid.Empty || m.PersonelIds.Contains(model.PersonelId.ToString())) &&
+                    (model.Period == -1 || m.Period == model.Period)
+                )
+                .OrderBy(m => m.Date)
+                .ToListAsync();
+
+            return nobets;
         }
 
         private bool NobetExists(Guid id)

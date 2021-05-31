@@ -15,23 +15,10 @@ namespace NobetTakip
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            /*modelBuilder
-                .Entity<Nobet>()
-                .Property(n => n.Nobetciler)
-                .HasConversion(
-                    v => string.Join(',', v.Nobetciler.ToList().Select(m => m.NobetId)),
-                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));*/
-
-            // personel sınıfı için mail adresi bilgisinin eşsiz olmasını sağla
-            // kayıt ekranında kullanıcının girdiği şifreleri kontrol et ve ona göre kayıt yap.
 
             modelBuilder.Entity<Personel>()
                 .HasIndex(b => b.MailAddress)
                 .IsUnique();
-
-            modelBuilder.Entity<Nobet>()
-                .HasMany(b => b.Nobetciler)
-                .WithOne();
 
             modelBuilder.Entity<Isletme>()
                .HasIndex(u => u.IsletmeKod)

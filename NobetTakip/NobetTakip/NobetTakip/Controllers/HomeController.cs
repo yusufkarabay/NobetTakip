@@ -12,113 +12,41 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using NobetTakip.Core.Models;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace NobetTakip.Controllers
 {
 
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-        List<Personel> personels = new List<Personel>();
-        private readonly Random rnd = new Random(0);
 
         AppDbContext _context;
+        private readonly NobsisApiService apiService;
 
-        [ViewData]
-        public string RealName { get; set; }
-
-        [ViewData]
-        public string IsletmeAdi { get; set; }
-
-        [ViewData]
-        public bool IsAdmin { get; set; }
-
-        public HomeController(ILogger<HomeController> logger, AppDbContext context)
+        public HomeController(AppDbContext context, NobsisApiService _apiService)
         {
-
-            RealName = "Personel Adı"; //HttpContext.Session.GetString("RealName");
-            IsletmeAdi = "İşletme Adı"; //HttpContext.Session.GetString("IsletmeAdi");
-            IsAdmin = true; //HttpContext.Session.GetString("IsAdmin");
-
             _context = context;
-
-            _logger = logger;
-
-            Personel p1 = new Personel();
-            p1.RealName = "Hasan Cemre Ok";
-
-            Personel p2 = new Personel();
-            p2.RealName = "Yusuf Karabay";
-
-            Personel p3 = new Personel();
-            p3.RealName = "Ahmet Uzun";
-
-            Personel p4 = new Personel();
-            p4.RealName = "Onur Türkoğlu";
-
-            Personel p5 = new Personel();
-            p5.RealName = "Mehmet Ağır";
-
-            personels.Add(p1);
-            personels.Add(p2);
-            personels.Add(p3);
-            personels.Add(p4);
-            personels.Add(p5);
+            apiService = _apiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            List<Nobet> nobetler = new List<Nobet>();
-            Nobet n1 = new Nobet();
-            n1.IsEnYakin = true;
-            n1.DayNight = false;
-            n1.NobetId = new Guid();
-            n1.Period = 0;
-            n1.Type = 0;
-            n1.Date = DateTime.Now;
-            nobetler.Add(n1);
+            Guid personelId = Guid.Parse(HttpContext.Session.GetString("Nobsis_PersonelId").ToString());
+            List<Nobet> ns = (List<Nobet>)await apiService.GetPersonelNobets(personelId);
 
-            for (int i = 0; i < 11; i++)
-            {
-                List<Personel> ps = new List<Personel>();
-                int num = rnd.Next(0, 8);
+            foreach (Nobet nobet in ns)
+                nobet.Personels = (List<Personel>)await apiService.GetNobetPersonels(nobet.NobetId);
 
-                for (int k = 0; k < num; k++)
-                {
-                    ps.Add(GetRandomPersonel());
-                }
-
-                Nobet n2 = new Nobet();
-                n2.IsEnYakin = false;
-                n2.DayNight = i % 2 == 0;
-                n2.NobetId = new Guid();
-                n2.Period = i % 2 == 0 ? 1 : 0;
-                n2.Type = 1;
-                n2.Date = DateTime.Now.AddDays(i);
-                n2.Nobetciler = ps;
-                nobetler.Add(n2);
-
-            }
-
-            int bildirimSayisi = 3;
+            int bildirimCount = await apiService.GetBildirimCount(personelId);
 
             HomeViewModel hvm = new HomeViewModel();
-            hvm.Nobetler = nobetler;
-            hvm.BildirimSayisi = bildirimSayisi;
-
-            string realName = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.GivenName).Value;
-            string isletmeAdi = HttpContext.User.Claims.First(c => c.Type == ClaimTypes.Email).Value;
-
+            hvm.Nobetler = ns;
+            hvm.BildirimSayisi = bildirimCount;
             return View(hvm);
         }
-
-        private Personel GetRandomPersonel()
-        {
-            int num = rnd.Next(0, 4);
-            return personels[num];
-        }
-
+        
         public IActionResult Privacy()
         {
             return View();
@@ -129,78 +57,5 @@ namespace NobetTakip.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        [Route("nobetler")]
-        public IActionResult Nobetler()
-        {
-            Guid isletmeId = Guid.Empty;
-            bool bParsed = Guid.TryParse(HttpContext.User.Claims.First(c => c.Type == "IsletmeId").Value.ToString(), out isletmeId);
-            if(bParsed) {
-
-                HomeViewModel hvm = new HomeViewModel();
-                hvm.Nobetler = _context.Nobets.Where(m => m.Isletme.IsletmeId == isletmeId && m.Date >= DateTime.Now).ToList();
-                return View(hvm);
-            } else
-            {
-                return View(new HomeViewModel()); // boş liste;
-            }
-        }
-
-
-        [Route("nobet/{id}")]
-        public IActionResult NobetDetay()
-        {
-
-            Nobet n1 = new Nobet();
-            n1.IsEnYakin = true;
-            n1.DayNight = false;
-            n1.NobetId = new Guid();
-            n1.Period = 0;
-            n1.Type = 0;
-            n1.Nobetciler = personels;
-            n1.Date = DateTime.Now;
-
-
-            return View(n1);
-        }
-    
-        [Route("nobet/takvim")]
-        public ActionResult TakvimOlustur()
-        {
-            Nobet nobet = new Nobet();
-            nobet.IsEnYakin = true;
-            nobet.DayNight = false;
-            nobet.NobetId = new Guid();
-            nobet.Period = 0;
-            nobet.Type = 0;
-            nobet.Nobetciler = personels;
-            nobet.Date = DateTime.Now;
-
-            DateTime eventStart = nobet.Date;
-            StringBuilder str = new StringBuilder(); 
-            str.AppendLine("BEGIN:VCALENDAR"); 
-            str.AppendLine("PRODID:-//Nöbet Paylaşım Bilgisi // Nöbsis"); 
-            str.AppendLine("VERSION:2.0"); 
-            str.AppendLine("METHOD:REQUEST");
-            str.AppendLine("BEGIN:VEVENT"); 
-            str.AppendLine(string.Format("DTSTART:{0:yyyyMMddTHHmmssZ}", eventStart)); 
-            str.AppendLine(string.Format("DTSTAMP:{0:yyyyMMddTHHmmssZ}", DateTime.Now)); 
-            str.AppendLine(string.Format("DTEND:{0:yyyyMMddTHHmmssZ}", eventStart.AddMinutes(+30))); 
-            str.AppendLine("LOCATION: Online"); 
-            str.AppendLine(string.Format("UID:{0}", Guid.NewGuid())); 
-            str.AppendLine(string.Format("DESCRIPTION:{0}", nobet.ShareText)); 
-            str.AppendLine(string.Format("X-ALT-DESC;FMTTYPE=text/html:{0}", nobet.ShareText)); 
-            str.AppendLine(string.Format("SUMMARY:{0}", "Nöbsis Nöbet Paylaşımı")); 
-            str.AppendLine(string.Format("ORGANIZER:MAILTO:{0}", "info@nobsis.com")); 
-            str.AppendLine(string.Format("ATTENDEE;CN=\"{0}\";RSVP=TRUE:mailto:{1}", "Hasan Cemre Ok", "okhasancemre@gmail.com")); 
-            str.AppendLine("BEGIN:VALARM"); str.AppendLine("TRIGGER:-PT15M"); 
-            str.AppendLine("ACTION:DISPLAY"); str.AppendLine("DESCRIPTION:Reminder"); 
-            str.AppendLine("END:VALARM"); str.AppendLine("END:VEVENT"); 
-            str.AppendLine("END:VCALENDAR");
-
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(str.ToString()));
-            return File(ms, "text/calendar");
-        }
-
     }
 }

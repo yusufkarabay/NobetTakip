@@ -24,17 +24,47 @@ namespace NobetTakip.WebAPI.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<Personel>> Login([FromBody] string lvm)
+        public async Task<ActionResult<Personel>> Login([FromBody] Personel personel)
         {
-            JObject jo = JObject.Parse(lvm);
-            Personel foundPersonel = await _context.Personels.FirstAsync(p => p.MailAddress.Equals(jo["MailAddress"].ToString()) && p.Password.Equals(jo["Password"].ToString()));
+            Personel foundPersonel = 
+                await _context.Personels
+                .Include(s => s.Isletme)
+                .FirstAsync(
+                    p => p.MailAddress.Equals(personel.MailAddress) 
+                    && p.Password.Equals(personel.Password));
 
             if (foundPersonel == null)
             {
-                return Unauthorized();
+                return Unauthorized("Mailadresi ve ya şifre ile eşleşen kullanıcı bulunamadı.");
+            } else if(foundPersonel.Isletme.IsActive == false)
+            {
+                return Forbid("Bağlı olduğunuz işletme aktif değil.");
             }
 
             return foundPersonel;
         }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<ActionResult<Personel>> Register([FromBody] Personel personel)
+        {
+            Personel foundPersonel =
+                await _context.Personels.Where(p => p.MailAddress.Equals(personel.MailAddress)).FirstOrDefaultAsync();
+
+            if (foundPersonel != null)
+            {
+                return Conflict("Girilen bilgilere ait bir kullanıcı zaten mevcut");
+            }
+            else if (foundPersonel.Isletme.IsActive == false)
+            {
+                return Forbid("Kayıt olunmak istenen işletme hesabı aktif değil");
+            }
+
+            await _context.Personels.AddAsync(personel);
+            await _context.SaveChangesAsync();
+
+            return foundPersonel;
+        }
+
     }
 }

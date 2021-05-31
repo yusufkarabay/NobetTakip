@@ -3,17 +3,20 @@
     Layout = "_Layout_UnAuth";
 }
 
-
 <main class="form-signin">
+
+    @if (Model.HasError)
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
     <!--<form method="POST" action="/account/login">-->
     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
 
-
         <div class="mb-4 text-center">
             <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
         </div>
-
 
         <h1 class="text-center h3 mb-3 fw-normal">Nöbet Takibe Giriş</h1>
         <label for="inputEmail" class="visually-hidden">Email address</label>
@@ -26,6 +29,7 @@
         @Html.PasswordFor(f => f.Password, new { title = "Kullanıcı şifrenizi giriniz.", @class = "form-control mb-3", @placeholder = "Parolanız" })
         <!--<input type="password" id="inputPassword" class="form-control mb-2" placeholder="Parola" value="@Model.Password" required>-->
 
+        @Html.HiddenFor(f => f.ReturnPath);
 
         <div class="checkbox mb-3">
             <label>
@@ -34,10 +38,13 @@
             </label>
         </div>
 
-       
+
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Giriş Yap</button>
-        
+        <div class="mb-2"></div>
+        <a class="w-100 btn btn-link" href="/account/register">Kayıt Ol</a>
+        <div class="mb-5"></div>
+
         <p class="mt-5 mb-3 text-muted  text-center">2021 &copy; Yusuf Karabay</p>
         <!--</form>-->
     }

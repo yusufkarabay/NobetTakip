@@ -1,0 +1,44 @@
+﻿@model NobetTakip.Core.Models.Isletme
+
+@{
+    ViewData["Title"] = "İşletme Bilgileri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="nobet-data col-6 offset-3 mb-4">
+    <h4 class="mb-3">İşletme Bilgileri</h4>
+    <form class="needs-validation" method="post" novalidate>
+        <div class="row g-3 mb-4">
+            <div class="col-12">
+                <label for="firstName" class="form-label">İşletme Adı</label>
+                @Html.TextBoxFor(f => f.IsletmeAdi, new { title = "Personel Adı - Soyadı", @class = "form-control", @placeholder = "İşletme Adı" })
+                <div class="invalid-feedback">
+                    Valid first name is required.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="gsmno" class="form-label">İşletme Telefonu</label>
+                @Html.TextBoxFor(f => f.Phone, new { title = "Telefon Numarası", @class = "form-control", @placeholder = "İşletme Telefonu" })
+                <div class="invalid-feedback">
+                    Please enter your shipping address.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="email" class="form-label">İşletme E-Posta Adresi <span class="text-muted"></span></label>
+                @Html.TextBoxFor(f => f.MailAddress, new { title = "Mail adresi", @class = "form-control", @placeholder = "İşletme E-Posta Adresi" })
+                <div class="invalid-feedback">
+                    Please enter a valid email address for shipping updates.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label for="password-new" class="form-label">İşletme Kodu</label>
+                @Html.TextBoxFor(f => f.IsletmeKod, new { title = "İşletme Kodu", @class = "form-control", @placeholder = "İşletme Kodu" })
+            </div>
+        </div>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Kaydı Tamamla</button>
+    </form>
+</div>
+

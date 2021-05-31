@@ -1,0 +1,41 @@
+﻿@model NobetTakip.Core.Models.Personel
+@{
+    ViewData["Title"] = string.Format("Personel Bilgileri");
+}
+
+    <div class="nobet-data col-6 offset-3 mb-4">
+        <h4 class="mb-3">Personel Bilgileri</h4>
+        <form class="needs-validation" method="post" novalidate>
+            <div class="row g-3 mb-4">
+                <div class="col-12">
+                    <label for="firstName" class="form-label">Personel Adı - Soyadı</label>
+                    @Html.TextBoxFor(f => f.RealName, new { title = "Personel Adı - Soyadı", @class = "form-control", @placeholder = "Ad Soyad" })
+                    <div class="invalid-feedback">
+                        Valid first name is required.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="gsmno" class="form-label">Telefon Numarası</label>
+                    @Html.TextBoxFor(f => f.GSMNo, new { title = "Telefon Numarası", @class = "form-control", @placeholder = "Telefon numarası" })
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="email" class="form-label">E-Posta Adresi <span class="text-muted"></span></label>
+                    @Html.TextBoxFor(f => f.MailAddress, new { title = "Mail adresi", @class = "form-control", @placeholder = "Mail adresi" })
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label for="password-new" class="form-label">Şifresi</label>
+                    @Html.PasswordFor(f => f.Password, new { value= Model.Password, title = "Şifre", @class = "form-control", @placeholder = "Şifre" })
+                </div>
+            </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Kaydı Tamamla</button>
+        </form>
+    </div>

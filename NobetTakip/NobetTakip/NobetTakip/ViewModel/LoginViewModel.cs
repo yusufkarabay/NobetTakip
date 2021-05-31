@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace NobetTakip.ViewModel
 {
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
         public string MailAddress { get; set; }
         public string Password { get; set; }
         public bool RememberMe { get; set; }
+        public string ReturnPath { get; set; }
     }
 }
